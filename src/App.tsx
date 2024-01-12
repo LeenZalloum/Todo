@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { IoRocketSharp } from "react-icons/io5";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import toast, { Toaster } from "react-hot-toast";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useStore from "./zustand/store";
 
 import { myFormSchema } from "./myFormSchema";
 import "./App.css";
@@ -22,6 +22,10 @@ type Task = {
 };
 
 function App() {
+  //zustand
+  const addTodo = useStore((state) => state.addTodo);
+
+  //state
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const {
@@ -51,6 +55,7 @@ function App() {
 
     // Use setTasks to update the state
     setTasks([...tasks, newTask]);
+    addTodo(newTask);
     reset();
     notify("success", "Todo added successfully!");
   };
@@ -73,9 +78,8 @@ function App() {
   useEffect(() => {
     const storedData = localStorage.getItem("myTasks");
     if (storedData) {
-      console.log(JSON.parse(storedData));
-
       setTasks(JSON.parse(storedData));
+      // addTodo(JSON.parse(storedData));
     }
   }, []);
   return (

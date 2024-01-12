@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { myFormSchema } from "./myFormSchema";
+import useStore from "./zustand/store";
 
 type FormData = {
   taskTitle: string;
@@ -26,6 +27,9 @@ type TaskCardProps = {
 };
 
 const TaskCard: React.FC<TaskCardProps> = ({ item, tasks, setTasks }) => {
+  const deleteTodo = useStore((state) => state.deleteTodo);
+  const toggleTodo = useStore((state) => state.toggleTodo);
+
   const [edit, setEdit] = useState(false);
 
   const {
@@ -53,6 +57,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ item, tasks, setTasks }) => {
     setEdit(false);
     setTasks(newArray);
     notify("success", "Todo updated successfully!");
+    toggleTodo(item.id, data.taskTitle, item.completed);
   };
 
   const updateTasksState = (itemId: number, newValue: boolean) => {
@@ -61,11 +66,12 @@ const TaskCard: React.FC<TaskCardProps> = ({ item, tasks, setTasks }) => {
     );
     notify("success", "Todo status updated successfully!");
     setTasks(newArray);
+    toggleTodo(itemId, item.name, !newValue);
   };
 
   const deleteTask = (itemId: number) => {
     const newArray = tasks.filter((item) => item.id !== itemId);
-
+    deleteTodo(itemId);
     setTasks(newArray);
   };
 
