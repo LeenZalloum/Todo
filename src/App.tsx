@@ -7,7 +7,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useStore from "./zustand/store";
 
-import { myFormSchema } from "./myFormSchema";
+import { myFormSchema } from "./zodSchema/myFormSchema";
 import "./App.css";
 import TaskCard from "./TaskCard";
 
@@ -53,7 +53,6 @@ function App() {
       completed: false,
     };
 
-    // Use setTasks to update the state
     setTasks([...tasks, newTask]);
     addTodo(newTask);
     reset();

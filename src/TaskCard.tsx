@@ -7,7 +7,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { myFormSchema } from "./myFormSchema";
+import { myFormSchema } from "./zodSchema/myFormSchema";
 import useStore from "./zustand/store";
 
 type FormData = {
