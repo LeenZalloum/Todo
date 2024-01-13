@@ -73,6 +73,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ item, tasks, setTasks }) => {
     const newArray = tasks.filter((item) => item.id !== itemId);
     deleteTodo(itemId);
     setTasks(newArray);
+    if (newArray.length == 0) {
+      localStorage.removeItem("myTasks");
+    }
   };
 
   useEffect(() => {

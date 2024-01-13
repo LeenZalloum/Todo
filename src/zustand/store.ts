@@ -23,9 +23,9 @@ const useStore = create<StoreState & StoreActions>((set) => ({
     set((state) => {
       const todosToAdd = Array.isArray(todoOrArray)
         ? todoOrArray
-        : [todoOrArray];
+        : [...state.todos, todoOrArray];
       return {
-        todos: [...state.todos, ...todosToAdd.map((todo) => todo)],
+        todos: [...todosToAdd.map((todo) => todo)],
       };
     }),
 

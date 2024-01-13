@@ -79,7 +79,7 @@ function App() {
     const storedData = localStorage.getItem("myTasks");
     if (storedData) {
       setTasks(JSON.parse(storedData));
-      // addTodo(JSON.parse(storedData));
+      addTodo(JSON.parse(storedData));
     }
   }, []);
   return (
